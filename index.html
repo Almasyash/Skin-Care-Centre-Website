@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>99 Bazar · Multi‑page e‑commerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>₹99 Store — Impulse Buy</title>
   <style>
     /* ----- reset & base ----- */
     * {
@@ -12,103 +12,818 @@
       box-sizing: border-box;
     }
     body {
-      background: #0f0e13;
-      color: #eaeaea;
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      background: #f8f6f2;
+      color: #1e1a16;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 80px;
     }
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
     button {
       cursor: pointer;
       border: none;
       font-family: inherit;
+      font-size: inherit;
+    }
+    input,
+    select {
+      font-family: inherit;
+      font-size: inherit;
     }
 
-    /* ----- layout ----- */
+    /* ----- container ----- */
     .container {
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 2rem;
-      width: 100%;
+      padding: 0 1rem;
     }
 
     /* ----- header / nav ----- */
     .header {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.6rem 0;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #e53e3e;
+      letter-spacing: -0.02em;
+    }
+    .logo span {
+      background: #e53e3e;
+      color: #fff;
+      padding: 0.1rem 0.5rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      margin-left: 0.2rem;
+    }
+    .header-search {
+      flex: 1;
+      max-width: 400px;
+      min-width: 140px;
+      position: relative;
+    }
+    .header-search input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.4rem;
+      border-radius: 40px;
+      border: 1px solid #e8e3dc;
+      background: #f8f6f2;
+      font-size: 0.85rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    .header-search input:focus {
+      border-color: #e53e3e;
+      background: #fff;
+    }
+    .header-search .icon {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.4;
+      font-size: 0.9rem;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .header-actions button {
+      background: none;
+      font-size: 1.2rem;
+      position: relative;
+      padding: 0.2rem 0.3rem;
+      border-radius: 30px;
+      transition: 0.15s;
+    }
+    .header-actions button:hover {
+      background: #f0ede8;
+    }
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #e53e3e;
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 700;
+      padding: 0.1rem 0.4rem;
+      border-radius: 30px;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    /* ----- category tabs (scroll) ----- */
+    .category-tabs {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding: 0.8rem 0 1rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      flex-wrap: nowrap;
+    }
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .category-tabs button {
+      flex-shrink: 0;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      background: #f0ede8;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: 0.2s;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    .category-tabs button.active {
+      background: #e53e3e;
+      color: #fff;
+      border-color: #e53e3e;
+    }
+    .category-tabs button:hover:not(.active) {
+      background: #e8e3dc;
+    }
+
+    /* ----- product grid ----- */
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 1.2rem 0 0.2rem;
+    }
+    .section-sub {
+      color: #6b6560;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 1rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 0.8rem 0.8rem 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      border: 1px solid #f0ede8;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+    .product-img {
+      aspect-ratio: 1/1;
+      background: #f8f6f2;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      line-height: 1.3;
+      flex: 1;
+    }
+    .product-price {
+      font-weight: 700;
+      color: #e53e3e;
+      font-size: 1.1rem;
+      margin: 0.2rem 0 0.4rem;
+    }
+    .product-price small {
+      font-weight: 400;
+      color: #999;
+      font-size: 0.7rem;
+      text-decoration: line-through;
+      margin-left: 0.4rem;
+    }
+    .product-rating {
+      font-size: 0.7rem;
+      color: #f59e0b;
+      margin-bottom: 0.3rem;
+    }
+    .add-btn {
+      background: #e53e3e;
+      color: #fff;
+      padding: 0.5rem 0;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: 0.15s;
+      width: 100%;
+      border: none;
+      margin-top: auto;
+    }
+    .add-btn:hover {
+      background: #c53030;
+      transform: scale(1.02);
+    }
+    .add-btn.outline {
+      background: transparent;
+      color: #e53e3e;
+      border: 1px solid #e53e3e;
+    }
+    .add-btn.outline:hover {
+      background: #e53e3e;
+      color: #fff;
+    }
+
+    /* ----- cart / checkout panels (slide) ----- */
+    .panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+    }
+    .panel-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      z-index: 300;
+      transform: translateX(100%);
+      transition: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      padding: 1.2rem 1.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -4px 0 30px rgba(0, 0, 0, 0.08);
+    }
+    .panel.open {
+      transform: translateX(0);
+    }
+    .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 2rem;
-      background: rgba(15, 14, 19, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      flex-wrap: wrap;
-      gap: 0.8rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid #f0ede8;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
-    .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      background: linear-gradient(135deg, #f97316, #ef4444);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
+    .panel-header button {
+      background: none;
+      font-size: 1.4rem;
+      padding: 0 0.2rem;
+      opacity: 0.5;
     }
-    .nav-links {
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.8rem 0;
+    }
+    .panel-footer {
+      border-top: 1px solid #f0ede8;
+      padding-top: 0.8rem;
+      margin-top: auto;
+    }
+    .cart-item {
       display: flex;
-      gap: 2rem;
+      gap: 0.8rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f5f2ed;
+      align-items: center;
+    }
+    .cart-item .ci-img {
+      width: 48px;
+      height: 48px;
+      background: #f8f6f2;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .cart-item .ci-info {
+      flex: 1;
+    }
+    .cart-item .ci-name {
       font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
     }
-    .nav-links a {
-      transition: 0.2s;
-      border-bottom: 1px solid transparent;
-      padding-bottom: 0.2rem;
+    .cart-item .ci-price {
+      font-size: 0.8rem;
+      color: #e53e3e;
+      font-weight: 600;
     }
-    .nav-links a:hover {
+    .cart-item .ci-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+    }
+    .cart-item .ci-qty button {
+      background: #f0ede8;
+      width: 26px;
+      height: 26px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: 0.15s;
+    }
+    .cart-item .ci-qty button:hover {
+      background: #e8e3dc;
+    }
+    .cart-item .ci-remove {
+      background: none;
+      color: #999;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 0.4rem 0 0.8rem;
+    }
+    .checkout-btn {
+      background: #e53e3e;
       color: #fff;
-      border-bottom-color: #f97316;
+      padding: 0.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      width: 100%;
+      font-size: 1rem;
+      transition: 0.15s;
+      text-align: center;
     }
-    .cart-badge {
-      background: #ef4444;
-      color: #fff;
-      border-radius: 40px;
-      padding: 0.2rem 0.8rem;
+    .checkout-btn:hover {
+      background: #c53030;
+    }
+    .checkout-btn:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* ----- payment form (inside panel) ----- */
+    .payment-section {
+      margin-top: 0.5rem;
+    }
+    .payment-section .row {
+      margin-bottom: 0.8rem;
+    }
+    .payment-section label {
       font-size: 0.7rem;
-      margin-left: 0.3rem;
-    }
-
-    /* ----- page container (multi‑page via show/hide) ----- */
-    .page {
-      display: none;
-      padding: 2rem 0 4rem 0;
-      animation: fadeUp 0.4s ease;
-    }
-    .page.active {
+      font-weight: 500;
+      color: #6b6560;
       display: block;
+      margin-bottom: 0.2rem;
     }
-    @keyframes fadeUp {
-      0% {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .payment-section input,
+    .payment-section select {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border-radius: 30px;
+      border: 1px solid #e8e3dc;
+      background: #f8f6f2;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .payment-section input:focus {
+      border-color: #e53e3e;
+    }
+    .payment-methods {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0.6rem 0;
+    }
+    .payment-methods button {
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      border: 1px solid #e8e3dc;
+      background: #fff;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: 0.15s;
+    }
+    .payment-methods button.active {
+      border-color: #e53e3e;
+      background: #fff5f5;
+      color: #e53e3e;
+    }
+    .pay-now-btn {
+      background: #22c55e;
+      color: #fff;
+      padding: 0.8rem;
+      border-radius: 60px;
+      font-weight: 700;
+      width: 100%;
+      font-size: 1rem;
+      margin-top: 0.4rem;
+      transition: 0.15s;
+    }
+    .pay-now-btn:hover {
+      background: #16a34a;
     }
 
-    /* ----- product grid (home) ----- */
-    .section-title {
+    /* ----- toast / notification ----- */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e1a16;
+      color: #fff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 500;
+      opacity: 0;
+      transition: 0.25s;
+      pointer-events: none;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+    }
+
+    /* ----- empty state ----- */
+    .empty-state {
+      color: #999;
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+    }
+
+    /* ----- trust bar ----- */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      background: #fff;
+      padding: 0.8rem 1rem;
+      border-radius: 60px;
+      margin: 1.2rem 0;
+      border: 1px solid #f0ede8;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #4a4540;
+    }
+    .trust-bar span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* ----- responsive ----- */
+    @media (max-width: 600px) {
+      .header-inner {
+        flex-wrap: wrap;
+      }
+      .header-search {
+        order: 3;
+        max-width: 100%;
+        flex-basis: 100%;
+      }
+      .logo {
+        font-size: 1.1rem;
+      }
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+      }
+      .product-card {
+        padding: 0.6rem;
+      }
+      .product-img {
+        font-size: 1.8rem;
+      }
+      .panel {
+        max-width: 100%;
+        padding: 1rem;
+      }
+      .trust-bar {
+        gap: 0.8rem;
+        font-size: 0.6rem;
+        padding: 0.6rem 0.8rem;
+      }
+    }
+    @media (max-width: 400px) {
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">₹99 <span>store</span></div>
+      <div class="header-search">
+        <span class="icon">🔍</span>
+        <input type="text" placeholder="Search 10,000+ products..." id="searchInput" />
+      </div>
+      <div class="header-actions">
+        <button onclick="openPanel('cart')" aria-label="Cart">
+          🛒 <span class="badge" id="cartBadge">0</span>
+        </button>
+        <button onclick="openPanel('wishlist')" aria-label="Wishlist">❤️</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== CATEGORY TABS ===== -->
+  <div class="container">
+    <div class="category-tabs" id="categoryTabs">
+      <button class="active" data-cat="all">🔥 All</button>
+      <button data-cat="home">🏠 Home</button>
+      <button data-cat="beauty">💄 Beauty</button>
+      <button data-cat="stationery">📚 Stationery</button>
+      <button data-cat="mobile">📱 Mobile</button>
+      <button data-cat="fashion">👗 Fashion</button>
+      <button data-cat="toys">🧸 Toys</button>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="container">
+
+    <!-- hero banner -->
+    <div style="background:linear-gradient(135deg,#fff5f5,#fef2f2);border-radius:20px;padding:1.2rem 1.5rem;margin-bottom:1rem;border:1px solid #fee2e2;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+        <div>
+          <div style="font-weight:800;font-size:clamp(1.2rem,4vw,1.8rem);">🔥 All items at ₹99</div>
+          <div style="font-size:0.8rem;color:#6b6560;">Limited time — grab your favorites!</div>
+        </div>
+        <div style="background:#e53e3e;color:#fff;padding:0.2rem 1rem;border-radius:40px;font-weight:600;font-size:0.8rem;">
+          ⏰ 2:34:12
+        </div>
+      </div>
+    </div>
+
+    <!-- trust bar -->
+    <div class="trust-bar">
+      <span>🔒 100% Secure</span>
+      <span>🚚 Free Delivery</span>
+      <span>🔄 7-Day Return</span>
+      <span>💳 COD Available</span>
+    </div>
+
+    <!-- products -->
+    <div class="section-title">✨ ₹99 Store Highlights</div>
+    <div class="section-sub">Quality products at unbelievable prices</div>
+    <div class="product-grid" id="productGrid"></div>
+
+    <!-- best sellers -->
+    <div class="section-title" style="margin-top:2rem;">⭐ Best Sellers</div>
+    <div class="section-sub">What everyone's buying</div>
+    <div class="product-grid" id="bestsellerGrid"></div>
+
+  </main>
+
+  <!-- ===== PANEL OVERLAY ===== -->
+  <div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+
+  <!-- ===== PANEL (cart / checkout) ===== -->
+  <div class="panel" id="panel">
+    <div class="panel-header">
+      <span id="panelTitle">🛒 Your Cart</span>
+      <button onclick="closePanel()">✕</button>
+    </div>
+    <div class="panel-body" id="panelBody">
+      <!-- dynamic content -->
+    </div>
+    <div class="panel-footer" id="panelFooter">
+      <!-- dynamic footer -->
+    </div>
+  </div>
+
+  
+  
+  <script>
+    // ===== PRODUCT DATA =====
+    const products = [{
+      id: 1,
+      name: 'Wireless Buds Pro',
+      price: 99,
+      category: 'mobile',
+      emoji: '🎧',
+      rating: 4.7,
+      reviews: 2300,
+      bestseller: true
+    }, {
+      id: 2,
+      name: 'Smart Watch S8',
+      price: 99,
+      category: 'mobile',
+      emoji: '⌚',
+      rating: 4.5,
+      reviews: 1800,
+      bestseller: true
+    }, {
+      id: 3,
+      name: 'USB-C Hub 6-in-1',
+      price: 99,
+      category: 'mobile',
+      emoji: '🔌',
+      rating: 4.3,
+      reviews: 950,
+      bestseller: false
+    }, {
+      id: 4,
+      name: 'Ergonomic Mouse',
+      price: 99,
+      category: 'stationery',
+      emoji: '🖱️',
+      rating: 4.4,
+      reviews: 670,
+      bestseller: false
+    }, {
+      id: 5,
+      name: 'Laptop Stand Pro',
+      price: 99,
+      category: 'stationery',
+      emoji: '💻',
+      rating: 4.6,
+      reviews: 1200,
+      bestseller: true
+    }, {
+      id: 6,
+      name: 'Desk Mat XL',
+      price: 99,
+      category: 'stationery',
+      emoji: '🧶',
+      rating: 4.2,
+      reviews: 430,
+      bestseller: false
+    }, {
+      id: 7,
+      name: 'Face Mask Sheet (10pcs)',
+      price: 99,
+      category: 'beauty',
+      emoji: '🧖',
+      rating: 4.8,
+      reviews: 3100,
+      bestseller: true
+    }, {
+      id: 8,
+      name: 'Lip Balm Set (3pcs)',
+      price: 99,
+      category: 'beauty',
+      emoji: '💄',
+      rating: 4.3,
+      reviews: 890,
+      bestseller: false
+    }, {
+      id: 9,
+      name: 'Spice Jar Set (6pcs)',
+      price: 99,
+      category: 'home',
+      emoji: '🧂',
+      rating: 4.5,
+      reviews: 560,
+      bestseller: false
+    }, {
+      id: 10,
+      name: 'Storage Organizer',
+      price: 99,
+      category: 'home',
+      emoji: '📦',
+      rating: 4.4,
+      reviews: 720,
+      bestseller: true
+    }, {
+      id: 11,
+      name: 'Puzzle 500pcs',
+      price: 99,
+      category: 'toys',
+      emoji: '🧩',
+      rating: 4.7,
+      reviews: 340,
+      bestseller: false
+    }, {
+      id: 12,
+      name: 'Soft Toy Bear',
+      price: 99,
+      category: 'toys',
+      emoji: '🧸',
+      rating: 4.9,
+      reviews: 2100,
+      bestseller: true
+    }, {
+      id: 13,
+      name: 'Sunglasses Aviator',
+      price: 99,
+      category: 'fashion',
+      emoji: '🕶️',
+      rating: 4.1,
+      reviews: 480,
+      bestseller: false
+    }, {
+      id: 14,
+      name: 'Belt Leather',
+      price: 99,
+      category: 'fashion',
+      emoji: '👔',
+      rating: 4.2,
+      reviews: 290,
+      bestseller: false
+    }, {
+      id: 15,
+      name: 'Notebook Set (3pcs)',
+      price: 99,
+      category: 'stationery',
+      emoji: '📓',
+      rating: 4.6,
+      reviews: 1500,
+      bestseller: true
+    }, {
+      id: 16,
+      name: 'Phone Ring Holder',
+      price: 99,
+      category: 'mobile',
+      emoji: '📱',
+      rating: 4.0,
+      reviews: 210,
+      bestseller: false
+    }];
+
+    // ===== STATE =====
+    let cart = JSON.parse(localStorage.getItem('store99_cart')) || [];
+    let currentCategory = 'all';
+    let currentPanel = 'cart'; // 'cart' or 'checkout'
+
+    // ===== DOM REFS =====
+    const productGrid = document.getElementById('productGrid');
+    const bestsellerGrid = document.getElementById('bestsellerGrid');
+    const cartBadge = document.getElementById('cartBadge');
+    const panel = document.getElementById('panel');
+    const panelOverlay = document.getElementById('panelOverlay');
+    const panelBody = document.getElementById('panelBody');
+    const panelFooter = document.getElementById('panelFooter');
+    const panelTitle = document.getElementById('panelTitle');
+    const toast = document.getElementById('toast');
+
+    // ===== RENDER PRODUCTS =====
+    function renderProducts() {
+      const filtered = currentCategory === 'all' ?
+        products :
+        products.filter(p => p.category === currentCategory);
+
+      productGrid.innerHTML = filtered.map(p => `
+        <div class="product-card">
+          <div class="product-img">${p.emoji}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-rating">⭐ ${p.rating} (${p.reviews})</div>
+          <div class="product-price">₹${p.price} <small>₹199</small></div>
+          <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      `).join('');
+
+      // bestsellers (top 6)
+      const bestsellers = products.filter(p => p.bestseller).slice(0, 6);
+      bestsellerGrid.innerHTML = bestsellers.map(p => `
+        <div class="product-card">
+          <div class="product-img">${p.emoji}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-rating">⭐ ${p    .section-title {
       font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
