@@ -94,6 +94,7 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            padding-top: 70px;
         }
 
         a {
@@ -140,6 +141,7 @@
             display: flex;
             align-items: center;
             gap: 0.6rem;
+            cursor: pointer;
         }
 
         .nav-brand .brand-icon {
@@ -223,6 +225,14 @@
             width: 100%;
         }
 
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
         .btn-nav-cta {
             padding: 0.5rem 1.4rem;
             background: var(--primary);
@@ -246,8 +256,8 @@
            HERO SECTION
            ================================================================ */
         .hero {
-            padding: 8rem 0 4rem;
-            min-height: 100vh;
+            padding: 4rem 0 4rem;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             background: linear-gradient(135deg, #f8fbfc 0%, #e6f7f7 100%);
@@ -311,6 +321,7 @@
             border-radius: 60px;
             font-weight: 600;
             transition: var(--transition);
+            border: none;
         }
 
         .btn-primary:hover {
@@ -467,6 +478,7 @@
 
             .hero {
                 padding: 6rem 0 3rem;
+                min-height: auto;
             }
 
             .hero-title {
@@ -479,6 +491,10 @@
 
             .hero-stats .stat-number {
                 font-size: 1.4rem;
+            }
+            
+            body {
+                padding-top: 60px;
             }
         }
 
@@ -576,6 +592,7 @@
            ================================================================ */
         section {
             padding: 4rem 0;
+            scroll-margin-top: 80px;
         }
 
         .section-tag {
@@ -1173,6 +1190,10 @@
             .booking-form {
                 padding: 1.5rem;
             }
+            
+            section {
+                scroll-margin-top: 70px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1218,7 +1239,7 @@
     <!-- ============ NAVIGATION ============ -->
     <nav class="navbar" id="navbar">
         <div class="container">
-            <div class="nav-brand">
+            <div class="nav-brand" onclick="window.location.href='#home'">
                 <span class="brand-icon">💎</span>
                 <div>
                     <span class="brand-name">Dr. Mugdha Mohan</span>
@@ -1231,7 +1252,7 @@
                 <span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#gallery">Gallery</a></li>
@@ -1739,6 +1760,29 @@
         });
 
         // ================================================================
+        //  ACTIVE NAV LINK ON SCROLL
+        // ================================================================
+        const sections = document.querySelectorAll('section');
+        const navLinksAll = document.querySelectorAll('.nav-links a:not(.btn-nav-cta)');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ================================================================
         //  SCROLL TO TOP BUTTON
         // ================================================================
         const scrollTopBtn = document.getElementById('scrollTop');
@@ -1787,7 +1831,7 @@
         // ================================================================
         //  SMOOTH REVEAL ON SCROLL
         // ================================================================
-        const sections = document.querySelectorAll('section');
+        const revealSections = document.querySelectorAll('section');
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1798,7 +1842,7 @@
             });
         }, { threshold: 0.08 });
 
-        sections.forEach(sec => {
+        revealSections.forEach(sec => {
             sec.style.opacity = '0';
             sec.style.transform = 'translateY(28px)';
             sec.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
@@ -1806,7 +1850,8 @@
         });
 
         console.log('✅ Dr. Mugdha Mohan website loaded successfully!');
-        console.log('📌 Navigation bar is now working properly.');
+        console.log('📌 All navigation links are now working properly.');
+        console.log('📌 Click on "Home" or brand logo to go back to top.');
     </script>
 </body>
 </html>
