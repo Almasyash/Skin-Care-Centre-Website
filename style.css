@@ -902,3 +902,430 @@ a {
         font-size: 1.5rem;
     }
 }
+/* ============ FLOATING BUTTONS ============ */
+
+/* WhatsApp Floating Button */
+.float-whatsapp {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.float-whatsapp:hover {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 8px 40px rgba(37, 211, 102, 0.6);
+    color: white;
+}
+
+/* Book Now Floating Button */
+.float-book {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    background: var(--primary);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(44, 122, 123, 0.4);
+    z-index: 999;
+    transition: var(--transition);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.float-book:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 40px rgba(44, 122, 123, 0.6);
+    color: white;
+}
+
+.float-book i {
+    font-size: 18px;
+}
+
+/* Scroll to Top Button */
+.scroll-top {
+    position: fixed;
+    bottom: 170px;
+    right: 20px;
+    background: var(--text-dark);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* ============ HERO BROCHURE BUTTON ============ */
+.hero-brochure {
+    margin-top: 24px;
+}
+
+.btn-brochure {
+    display: inline-block;
+    padding: 12px 28px;
+    background: white;
+    color: var(--primary);
+    border: 2px dashed var(--primary);
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-brochure:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(44, 122, 123, 0.2);
+}
+
+.btn-brochure i {
+    margin-right: 8px;
+}
+
+/* ============ GALLERY SECTION ============ */
+.gallery {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.gallery-card {
+    background: var(--secondary);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    padding: 20px;
+}
+
+.gallery-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+
+.gallery-before,
+.gallery-after {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.gallery-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.gallery-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+}
+
+.gallery-caption {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 10px;
+}
+
+/* ============ FAQ SECTION ============ */
+.faq {
+    padding: 100px 0;
+    background: var(--secondary);
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.faq-item {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-item:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+}
+
+.faq-question:hover {
+    color: var(--primary);
+}
+
+.faq-question i {
+    transition: var(--transition);
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 24px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 300px;
+    padding: 0 24px 20px;
+}
+
+.faq-answer p {
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+/* ============ FOOTER SOCIAL ============ */
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 18px;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* Footer Hours */
+.footer-hours h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.footer-hours ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-hours li {
+    color: #A0AEC0;
+    font-size: 0.95rem;
+}
+
+.footer-hours li strong {
+    color: var(--white);
+}
+
+/* ============ ANIMATIONS ============ */
+/* Fade In Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content,
+.hero-image,
+.about-grid,
+.services-grid,
+.gallery-grid,
+.reviews-grid,
+.faq-grid,
+.contact-grid,
+.booking-wrapper {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Service Card Hover Animation */
+.service-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.service-card .service-icon {
+    transition: all 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Review Card Animation */
+.review-card {
+    transition: all 0.4s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* ============ RESPONSIVE UPDATES ============ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .float-whatsapp {
+        width: 50px;
+        height: 50px;
+        font-size: 26px;
+        bottom: 90px;
+    }
+    
+    .float-book {
+        padding: 10px 18px;
+        font-size: 12px;
+        bottom: 25px;
+    }
+    
+    .float-book span {
+        display: none;
+    }
+    
+    .scroll-top {
+        bottom: 150px;
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-placeholder {
+        height: 150px;
+    }
+    
+    .faq-question {
+        font-size: 0.95rem;
+        padding: 16px 18px;
+    }
+    
+    .hero-brochure {
+        text-align: center;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .float-whatsapp {
+        right: 10px;
+        bottom: 80px;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+    
+    .float-book {
+        right: 10px;
+        bottom: 20px;
+        padding: 10px 14px;
+        font-size: 11px;
+    }
+    
+    .float-book i {
+        font-size: 14px;
+    }
+}
