@@ -135,6 +135,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
 
         .nav-brand {
@@ -196,6 +197,7 @@
             align-items: center;
             gap: 1.5rem;
             list-style: none;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -204,6 +206,7 @@
             color: var(--text-muted);
             transition: var(--transition);
             position: relative;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
@@ -250,6 +253,57 @@
 
         .btn-nav-cta::after {
             display: none !important;
+        }
+
+        /* ================================================================
+           MOBILE NAV - HORIZONTAL SCROLL
+           ================================================================ */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: row;
+                width: 100%;
+                padding: 0.8rem 0;
+                gap: 0.8rem;
+                align-items: center;
+                justify-content: flex-start;
+                border-top: 1px solid rgba(0, 0, 0, 0.04);
+                margin-top: 0.8rem;
+                overflow-x: auto;
+                overflow-y: hidden;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+                padding: 0.3rem 0.2rem;
+            }
+
+            .btn-nav-cta {
+                flex-shrink: 0;
+                padding: 0.4rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            body {
+                padding-top: 60px;
+            }
         }
 
         /* ================================================================
@@ -421,7 +475,7 @@
         }
 
         /* ================================================================
-           RESPONSIVE
+           RESPONSIVE (Hero)
            ================================================================ */
         @media (max-width: 992px) {
             .hero .container {
@@ -448,34 +502,6 @@
         }
 
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                padding: 1rem 0;
-                gap: 1rem;
-                align-items: center;
-                border-top: 1px solid rgba(0, 0, 0, 0.04);
-                margin-top: 0.8rem;
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-links a {
-                font-size: 1rem;
-            }
-
-            .btn-nav-cta {
-                width: 100%;
-                text-align: center;
-            }
-
             .hero {
                 padding: 6rem 0 3rem;
                 min-height: auto;
@@ -491,10 +517,6 @@
 
             .hero-stats .stat-number {
                 font-size: 1.4rem;
-            }
-            
-            body {
-                padding-top: 60px;
             }
         }
 
@@ -1850,8 +1872,7 @@
         });
 
         console.log('✅ Dr. Mugdha Mohan website loaded successfully!');
-        console.log('📌 All navigation links are now working properly.');
-        console.log('📌 Click on "Home" or brand logo to go back to top.');
+        console.log('📌 Mobile navigation now scrolls horizontally (not vertically)');
     </script>
 </body>
 </html>
