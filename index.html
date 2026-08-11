@@ -1,13 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ============ SEO META TAGS ============ -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dr. Mugdha Mohan - Skin Care Centre</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>Dr. Mugdha Mohan - Best Dermatologist in Bettiah | Skin Care Centre</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <meta name="description" content="Dr. Mugdha Mohan is the best dermatologist in Bettiah, Bihar. Book an appointment for acne, skin care, anti-aging treatments & more. 4.8⭐ 172+ reviews." />
+    <meta name="keywords" content="dermatologist in Bettiah, skin care centre, Dr. Mugdha Mohan, skin doctor, acne treatment, anti-aging, best dermatologist Bihar" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://drmugdhamohan.com" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Dr. Mugdha Mohan - Best Dermatologist in Bettiah" />
+    <meta property="og:description" content="Expert dermatological care with 4.8⭐ rating. Book your appointment today!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://drmugdhamohan.com" />
+    <meta property="og:image" content="https://drmugdhamohan.com/dr-mugdha-og.jpg" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dr. Mugdha Mohan - Best Dermatologist in Bettiah" />
+    <meta name="twitter:description" content="Expert dermatological care with 4.8⭐ rating. Book your appointment today!" />
+    
+    <!-- Schema Markup for Local Business (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MedicalClinic",
+        "name": "Dr. Mugdha Mohan Skin Care Centre",
+        "image": "https://drmugdhamohan.com/dr-mugdha.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "West of Kotwali, Chowk, Hospital Rd, Kali Bagh Colony",
+            "addressLocality": "Bettiah",
+            "addressRegion": "Bihar",
+            "postalCode": "845438",
+            "addressCountry": "IN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 26.123456,
+            "longitude": 84.123456
+        },
+        "telephone": "+919999999999",
+        "openingHours": "Mo-Sa 08:30-19:00",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "172"
+        }
+    }
+    </script>
+
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
+    
+    <!-- Preload Critical Images for Faster Loading -->
+    <link rel="preload" as="image" href="dr-mugdha.jpg" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
+
+    <!-- ============ FLOATING BUTTONS ============ -->
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919999999999?text=Hi%20Dr.%20Mugdha%2C%20I%27d%20like%20to%20book%20an%20appointment" 
+       class="float-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Book Now Floating Button -->
+    <a href="#booking" class="float-book">
+        <i class="fas fa-calendar-check"></i>
+        <span>Book Now</span>
+    </a>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <!-- ============ NAVIGATION ============ -->
     <nav class="navbar" id="navbar">
         <div class="container">
@@ -27,7 +104,9 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#booking" class="btn-nav-cta">Book Appointment</a></li>
             </ul>
@@ -50,33 +129,41 @@
                     with a personal touch. Your skin health is our priority.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#booking" class="btn-primary">Book Appointment</a>
+                    <a href="#booking" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i> Book Appointment
+                    </a>
                     <a href="#about" class="btn-secondary">Learn More →</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <span class="stat-number">10+</span>
+                        <span class="stat-number" data-target="10">0</span>
                         <span class="stat-label">Years Experience</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">172</span>
+                        <span class="stat-number" data-target="172">0</span>
                         <span class="stat-label">Reviews</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">4.8</span>
+                        <span class="stat-number" data-target="4.8">0</span>
                         <span class="stat-label">⭐ Rating</span>
                     </div>
                 </div>
+                <!-- Download Brochure Button -->
+                <div class="hero-brochure">
+                    <a href="#" class="btn-brochure" download>
+                        <i class="fas fa-file-pdf"></i> Download Brochure
+                    </a>
+                </div>
             </div>
             <div class="hero-image">
-    <div class="hero-card">
-        <img src="dr-mugdha.jpg" alt="Dr. Mugdha Mohan" style="width: 100%; border-radius: 12px; margin-bottom: 15px; object-fit: cover;">
-        <h3>Dr. Mugdha Mohan</h3>
-        <p>MBBS, MD - Dermatology</p>
-        <div class="card-rating">⭐ 4.8 (172)</div>
-        <div class="card-badge">🌟 Top Rated Dermatologist</div>
-    </div>
-</div>
+                <div class="hero-card">
+                    <img src="dr-mugdha.jpg" alt="Dr. Mugdha Mohan - Best Dermatologist in Bettiah" style="width: 100%; border-radius: 12px; margin-bottom: 15px; object-fit: cover;" loading="lazy" />
+                    <h3>Dr. Mugdha Mohan</h3>
+                    <p>MBBS, MD - Dermatology</p>
+                    <div class="card-rating">⭐ 4.8 (172)</div>
+                    <div class="card-badge">🌟 Top Rated Dermatologist</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -85,11 +172,11 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image">
-    <div class="about-placeholder" style="background: none; border: none; box-shadow: none;">
-        <img src="dr-mugdha.jpg" alt="Dr. Mugdha Mohan" style="width: 100%; max-width: 350px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-        <p style="margin-top: 10px; font-weight: 600; color: #1a1a2e;">Dr. Mugdha Mohan</p>
-    </div>
-</div>
+                    <div class="about-placeholder" style="background: none; border: none; box-shadow: none;">
+                        <img src="dr-mugdha.jpg" alt="Dr. Mugdha Mohan - Dermatologist" style="width: 100%; max-width: 350px; border-radius: 20px; box-shadow: 0 20px 60px rgba(44,122,123,0.15);" loading="lazy" />
+                        <p style="margin-top: 10px; font-weight: 600; color: #1a1a2e;">Dr. Mugdha Mohan</p>
+                    </div>
+                </div>
                 <div class="about-content">
                     <span class="section-tag">About Us</span>
                     <h2 class="section-title">Expert Dermatological Care <br />in Bettiah</h2>
@@ -179,6 +266,54 @@
         </div>
     </section>
 
+    <!-- ============ GALLERY SECTION (Before/After) ============ -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Before & After</span>
+                <h2 class="section-title">Real Results. Real Transformations.</h2>
+                <p class="section-subtitle">
+                    See the amazing results our patients have achieved with Dr. Mugdha's expert care.
+                </p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-before">
+                        <span class="gallery-label">Before</span>
+                        <div class="gallery-placeholder">🟤</div>
+                    </div>
+                    <div class="gallery-after">
+                        <span class="gallery-label">After</span>
+                        <div class="gallery-placeholder">✨</div>
+                    </div>
+                    <p class="gallery-caption">Acne Treatment - 3 Months Progress</p>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-before">
+                        <span class="gallery-label">Before</span>
+                        <div class="gallery-placeholder">🟤</div>
+                    </div>
+                    <div class="gallery-after">
+                        <span class="gallery-label">After</span>
+                        <div class="gallery-placeholder">✨</div>
+                    </div>
+                    <p class="gallery-caption">Anti-Aging Treatment - 6 Months Progress</p>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-before">
+                        <span class="gallery-label">Before</span>
+                        <div class="gallery-placeholder">🟤</div>
+                    </div>
+                    <div class="gallery-after">
+                        <span class="gallery-label">After</span>
+                        <div class="gallery-placeholder">✨</div>
+                    </div>
+                    <p class="gallery-caption">Skin Brightening - 2 Months Progress</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ============ REVIEWS SECTION ============ -->
     <section class="reviews" id="reviews">
         <div class="container">
@@ -224,6 +359,75 @@
         </div>
     </section>
 
+    <!-- ============ FAQ SECTION ============ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">FAQs</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">
+                    Get answers to the most common questions about our treatments and services.
+                </p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What skin conditions do you treat?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We treat a wide range of skin conditions including acne, eczema, psoriasis, rosacea, skin infections, pigmentation disorders, and more. Dr. Mugdha specializes in both medical and cosmetic dermatology.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do I need a referral to book an appointment?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No referral is needed! You can directly book an appointment through our website, by calling us, or by visiting our clinic during working hours.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What are the clinic's operating hours?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We are open Monday to Saturday from 8:30 AM to 7:00 PM. We are closed on Sundays. Emergency cases are handled on a priority basis.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I prepare for my first appointment?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Please bring any previous medical records, a list of current medications, and be prepared to discuss your skin concerns in detail. Avoid wearing makeup or skincare products on the day of your appointment for better examination.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you accept health insurance?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we accept most major health insurance plans. Please bring your insurance card to your appointment, and our staff will help you with the paperwork.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What cosmetic treatments do you offer?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer a range of cosmetic treatments including Botox, dermal fillers, chemical peels, laser treatments, PRP therapy, microneedling, and anti-aging solutions. Schedule a consultation to find the best treatment for you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ============ LOCATION & CONTACT ============ -->
     <section class="contact" id="contact">
         <div class="container">
@@ -251,7 +455,8 @@
                             <span class="contact-icon">📞</span>
                             <div>
                                 <h4>Phone</h4>
-                                <p><a href="tel:+919999999999">+91 99999 99999</a></p>
+                                <p><a href="tel:+919999999999"><i class="fas fa-phone"></i> +91 99999 99999</a></p>
+                                <p><a href="https://wa.me/919999999999" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -271,7 +476,8 @@
                         style="border:0; border-radius: 12px;"
                         allowfullscreen=""
                         loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Dr. Mugdha Mohan Skin Care Centre Location">
                     </iframe>
                 </div>
             </div>
@@ -311,7 +517,9 @@
                     <input type="date" required />
                     <input type="time" required />
                     <textarea placeholder="Any specific concerns?" rows="3"></textarea>
-                    <button type="submit" class="btn-primary">Book Appointment</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i> Book Appointment
+                    </button>
                 </form>
             </div>
         </div>
@@ -330,6 +538,14 @@
                     <p class="footer-text">
                         Expert dermatological care with a personal touch.
                     </p>
+                    <!-- Social Media Links in Footer -->
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Google Maps"><i class="fas fa-map-marker-alt"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
@@ -337,30 +553,32 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Contact</h4>
                     <ul>
-                        <li><a href="tel:+919999999999">+91 99999 99999</a></li>
-                        <li><a href="mailto:dr.mugdha@skincare.com">dr.mugdha@skincare.com</a></li>
-                        <li>Bettiah, Bihar 845438</li>
+                        <li><a href="tel:+919999999999"><i class="fas fa-phone"></i> +91 99999 99999</a></li>
+                        <li><a href="https://wa.me/919999999999" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        <li><a href="mailto:dr.mugdha@skincare.com"><i class="fas fa-envelope"></i> dr.mugdha@skincare.com</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Bettiah, Bihar 845438</li>
                     </ul>
                 </div>
-                <div class="footer-social">
-                    <h4>Follow Us</h4>
-                    <div class="social-icons">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📸</a>
-                        <a href="#" aria-label="YouTube">▶️</a>
-                        <a href="#" aria-label="Google Maps">📍</a>
-                    </div>
+                <div class="footer-hours">
+                    <h4>Working Hours</h4>
+                    <ul>
+                        <li><strong>Mon - Fri:</strong> 8:30 AM - 7:00 PM</li>
+                        <li><strong>Saturday:</strong> 8:30 AM - 7:00 PM</li>
+                        <li><strong>Sunday:</strong> Closed</li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Dr. Mugdha Mohan Skin Care Centre. All rights reserved.</p>
-                <p>Made with ❤️ by <a href="#">Vibe Coder</a></p>
+                <p>Made with ❤️ by <a href="#" target="_blank">Vibe Coder</a></p>
             </div>
         </div>
     </footer>
