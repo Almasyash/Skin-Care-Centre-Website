@@ -57,30 +57,1160 @@
     <!-- Fonts & Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
     
-    <!-- Preload Critical Images for Faster Loading -->
-    <link rel="preload" as="image" href="dr-mugdha.jpg" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+        /* ================================================================
+           CSS VARIABLES
+           ================================================================ */
+        :root {
+            --primary: #2c7a7b;
+            --primary-dark: #1e5556;
+            --primary-light: #e6f7f7;
+            --bg-light: #f8fbfc;
+            --text-dark: #1a1a2e;
+            --text-muted: #6b7280;
+            --white: #ffffff;
+            --shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --transition: 0.3s ease;
+        }
+
+        /* ================================================================
+           RESET & BASE
+           ================================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ================================================================
+           NAVIGATION
+           ================================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 0.8rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-brand .brand-icon {
+            font-size: 1.6rem;
+        }
+
+        .nav-brand .brand-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-brand .brand-sub {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            padding: 0.4rem;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text-dark);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-nav-cta {
+            padding: 0.5rem 1.4rem;
+            background: var(--primary);
+            color: var(--white) !important;
+            border-radius: 60px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-nav-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(44, 122, 123, 0.3);
+        }
+
+        .btn-nav-cta::after {
+            display: none !important;
+        }
+
+        /* ================================================================
+           HERO SECTION
+           ================================================================ */
+        .hero {
+            padding: 8rem 0 4rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fbfc 0%, #e6f7f7 100%);
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            background: rgba(44, 122, 123, 0.08);
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-badge span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 60px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(44, 122, 123, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--text-dark);
+            border-radius: 60px;
+            font-weight: 500;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .hero-stats .stat {
+            text-align: center;
+        }
+
+        .hero-stats .stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .hero-stats .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            max-width: 320px;
+            width: 100%;
+        }
+
+        .hero-card img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 4px solid var(--primary-light);
+        }
+
+        .hero-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .hero-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hero-card .card-rating {
+            margin: 0.5rem 0;
+            font-weight: 600;
+            color: #f59e0b;
+        }
+
+        .hero-card .card-badge {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* ================================================================
+           RESPONSIVE
+           ================================================================ */
+        @media (max-width: 992px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                gap: 1rem;
+                align-items: center;
+                border-top: 1px solid rgba(0, 0, 0, 0.04);
+                margin-top: 0.8rem;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1rem;
+            }
+
+            .btn-nav-cta {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 6rem 0 3rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .hero-stats .stat-number {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-card {
+                padding: 1.5rem;
+            }
+
+            .hero-card img {
+                max-width: 150px;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ================================================================
+           FLOATING BUTTONS
+           ================================================================ */
+        .float-whatsapp {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 999;
+            background: #25d366;
+            color: #fff;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: var(--transition);
+        }
+
+        .float-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        .float-book {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            z-index: 999;
+            background: var(--primary);
+            color: #fff;
+            padding: 0.8rem 1.4rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(44, 122, 123, 0.4);
+            transition: var(--transition);
+        }
+
+        .float-book:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(44, 122, 123, 0.5);
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary);
+        }
+
+        /* ================================================================
+           SECTION COMMON
+           ================================================================ */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.3rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ================================================================
+           ABOUT
+           ================================================================ */
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .feature {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 1.4rem;
+        }
+
+        .feature h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image img {
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 100%;
+        }
+
+        /* ================================================================
+           SERVICES
+           ================================================================ */
+        .services {
+            background: var(--bg-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ================================================================
+           GALLERY
+           ================================================================ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-card .gallery-before,
+        .gallery-card .gallery-after {
+            padding: 1.5rem;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-card .gallery-before {
+            background: #fef3c7;
+            border-bottom: 2px dashed #e5e5e5;
+        }
+
+        .gallery-card .gallery-after {
+            background: #d1fae5;
+        }
+
+        .gallery-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .gallery-placeholder {
+            font-size: 2.5rem;
+            margin: 0.3rem 0;
+        }
+
+        .gallery-caption {
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            background: var(--white);
+        }
+
+        /* ================================================================
+           REVIEWS
+           ================================================================ */
+        .reviews {
+            background: var(--white);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: var(--bg-light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .review-stars {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .review-author {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            padding-top: 0.8rem;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .author-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ================================================================
+           FAQ
+           ================================================================ */
+        .faq {
+            background: var(--bg-light);
+        }
+
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .faq-question:hover {
+            background: rgba(0, 0, 0, 0.01);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+            color: var(--text-muted);
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-answer.open {
+            max-height: 300px;
+            padding: 0 1.5rem 1.2rem;
+        }
+
+        .faq-answer p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ================================================================
+           CONTACT
+           ================================================================ */
+        .contact {
+            background: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            width: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item h4 {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .contact-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .contact-item a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* ================================================================
+           BOOKING
+           ================================================================ */
+        .booking {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .booking .section-tag {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .booking .section-title {
+            color: var(--white);
+        }
+
+        .booking-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .booking-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .benefit {
+            font-weight: 500;
+        }
+
+        .booking-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            padding: 0.8rem 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .booking-form .btn-primary {
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* ================================================================
+           FOOTER
+           ================================================================ */
+        .footer {
+            background: #0f172a;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand .brand-icon {
+            font-size: 1.8rem;
+        }
+
+        .footer-brand .brand-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .footer-brand .brand-sub {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-text {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4,
+        .footer-hours h4 {
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links ul,
+        .footer-hours ul {
+            list-style: none;
+        }
+
+        .footer-links ul li,
+        .footer-hours ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-links ul a {
+            color: rgba(255, 255, 255, 0.6);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .footer-links ul a:hover {
+            color: var(--white);
+        }
+
+        .footer-hours ul li {
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+        }
+
+        /* ================================================================
+           RESPONSIVE (Additional)
+           ================================================================ */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-map iframe {
+                height: 300px;
+            }
+
+            .booking-form {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                gap: 1rem;
+            }
+
+            .hero-stats .stat-number {
+                font-size: 1.2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <!-- ============ FLOATING BUTTONS ============ -->
-    <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/919999999999?text=Hi%20Dr.%20Mugdha%2C%20I%27d%20like%20to%20book%20an%20appointment" 
        class="float-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Book Now Floating Button -->
     <a href="#booking" class="float-book">
         <i class="fas fa-calendar-check"></i>
         <span>Book Now</span>
     </a>
 
-    <!-- Scroll to Top Button -->
     <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
         <i class="fas fa-chevron-up"></i>
     </button>
@@ -114,61 +1244,61 @@
     </nav>
 
     <!-- ============ HERO SECTION ============ -->
-<section class="hero" id="home">
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-badge">
-                ⭐ 4.8 <span>(172 reviews)</span>
-            </div>
-            <h1 class="hero-title">
-                Your Trusted<br />
-                <span class="highlight">Skin Care</span> Expert
-            </h1>
-            <p class="hero-subtitle">
-                Dr. Mugdha Mohan provides compassionate, expert dermatological care
-                with a personal touch. Your skin health is our priority.
-            </p>
-            <div class="hero-buttons">
-                <a href="#booking" class="btn-primary">
-                    <i class="fas fa-calendar-check"></i> Book Appointment
-                </a>
-                <a href="#about" class="btn-secondary">Learn More →</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label">Years Experience</span>
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    ⭐ 4.8 <span>(172 reviews)</span>
                 </div>
-                <div class="stat">
-                    <span class="stat-number">172</span>
-                    <span class="stat-label">Reviews</span>
+                <h1 class="hero-title">
+                    Your Trusted<br />
+                    <span class="highlight">Skin Care</span> Expert
+                </h1>
+                <p class="hero-subtitle">
+                    Dr. Mugdha Mohan provides compassionate, expert dermatological care
+                    with a personal touch. Your skin health is our priority.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#booking" class="btn-primary">
+                        <i class="fas fa-calendar-check"></i> Book Appointment
+                    </a>
+                    <a href="#about" class="btn-secondary">Learn More →</a>
                 </div>
-                <div class="stat">
-                    <span class="stat-number">4.8</span>
-                    <span class="stat-label">⭐ Rating</span>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">172</span>
+                        <span class="stat-label">Reviews</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">⭐ Rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-card">
+                    <img src="dr-mugdha.jpg" 
+                         alt="Dr. Mugdha Mohan - Best Dermatologist in Bettiah" />
+                    <h3>Dr. Mugdha Mohan</h3>
+                    <p>MBBS, MD - Dermatology</p>
+                    <div class="card-rating">⭐ 4.8 (172)</div>
+                    <div class="card-badge">🌟 Top Rated Dermatologist</div>
                 </div>
             </div>
         </div>
-        <div class="hero-image">
-            <div class="hero-card">
-                <img src="dr-mugdha.jpg" alt="Dr. Mugdha Mohan - Best Dermatologist in Bettiah" loading="lazy" />
-                <h3>Dr. Mugdha Mohan</h3>
-                <p>MBBS, MD - Dermatology</p>
-                <div class="card-rating">⭐ 4.8 (172)</div>
-                <div class="card-badge">🌟 Top Rated Dermatologist</div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+
     <!-- ============ ABOUT SECTION ============ -->
     <section class="about" id="about">
         <div class="container">
             <div class="about-grid">
                 <div class="about-image">
-                    <div class="about-placeholder" style="background: none; border: none; box-shadow: none;">
-                        <img src="dr-mugdha.jpg" alt="Dr. Mugdha Mohan - Dermatologist" style="width: 100%; max-width: 350px; border-radius: 20px; box-shadow: 0 20px 60px rgba(44,122,123,0.15);" loading="lazy" />
-                        <p style="margin-top: 10px; font-weight: 600; color: #1a1a2e;">Dr. Mugdha Mohan</p>
-                    </div>
+                    <img src="dr-mugdha.jpg" 
+                         alt="Dr. Mugdha Mohan - Dermatologist" />
                 </div>
                 <div class="about-content">
                     <span class="section-tag">About Us</span>
@@ -259,7 +1389,7 @@
         </div>
     </section>
 
-    <!-- ============ GALLERY SECTION (Before/After) ============ -->
+    <!-- ============ GALLERY SECTION ============ -->
     <section class="gallery" id="gallery">
         <div class="container">
             <div class="section-header">
@@ -422,73 +1552,73 @@
     </section>
 
     <!-- ============ LOCATION & CONTACT ============ -->
-<section class="contact" id="contact">
-    <div class="container">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <span class="section-tag">Get in Touch</span>
-                <h2 class="section-title">Visit Our Clinic</h2>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
-                        <div>
-                            <h4>Address</h4>
-                            <p>West of Kotwali, Chowk, Hospital Rd,<br />Kali Bagh Colony, Bettiah, Bihar 845438</p>
-                            <a href="https://www.google.com/maps/dir//Skin+Care+Centre+Dr.+Mugdha+Mohan+Bettiah" 
-                               target="_blank" 
-                               style="color: var(--primary); font-weight: 600; font-size: 14px; display: inline-block; margin-top: 4px;">
-                                <i class="fas fa-directions"></i> Get Directions
-                            </a>
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-tag">Get in Touch</span>
+                    <h2 class="section-title">Visit Our Clinic</h2>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div>
+                                <h4>Address</h4>
+                                <p>West of Kotwali, Chowk, Hospital Rd,<br />Kali Bagh Colony, Bettiah, Bihar 845438</p>
+                                <a href="https://www.google.com/maps/dir//Skin+Care+Centre+Dr.+Mugdha+Mohan+Bettiah" 
+                                   target="_blank" 
+                                   style="color: var(--primary); font-weight: 600; font-size: 14px; display: inline-block; margin-top: 4px;">
+                                    <i class="fas fa-directions"></i> Get Directions
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">🕐</span>
-                        <div>
-                            <h4>Working Hours</h4>
-                            <p><strong>Mon - Sat:</strong> 8:30 AM - 7:00 PM</p>
-                            <p><strong>Sunday:</strong> Closed</p>
+                        <div class="contact-item">
+                            <span class="contact-icon">🕐</span>
+                            <div>
+                                <h4>Working Hours</h4>
+                                <p><strong>Mon - Sat:</strong> 8:30 AM - 7:00 PM</p>
+                                <p><strong>Sunday:</strong> Closed</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <div>
-                            <h4>Phone</h4>
-                            <p><a href="tel:+919999999999"><i class="fas fa-phone"></i> +91 99999 99999</a></p>
-                            <p><a href="https://wa.me/919999999999" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <h4>Phone</h4>
+                                <p><a href="tel:+919999999999"><i class="fas fa-phone"></i> +91 99999 99999</a></p>
+                                <p><a href="https://wa.me/919999999999" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">✉️</span>
-                        <div>
-                            <h4>Email</h4>
-                            <p><a href="mailto:dr.mugdha@skincare.com">dr.mugdha@skincare.com</a></p>
+                        <div class="contact-item">
+                            <span class="contact-icon">✉️</span>
+                            <div>
+                                <h4>Email</h4>
+                                <p><a href="mailto:dr.mugdha@skincare.com">dr.mugdha@skincare.com</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="contact-map">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3561.3304382568695!2d84.49281327450456!3d26.797605176715958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39936f18623a83df%3A0xd4f7e931dc2ffa94!2sSkin%20Care%20Centre%20(Dr.%20Mugdha%20Mohan)!5e0!3m2!1sen!2sus!4v1786411576501!5m2!1sen!2sus" 
-                    width="100%" 
-                    height="400" 
-                    style="border:0; border-radius: 12px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    title="Dr. Mugdha Mohan Skin Care Centre Location">
-                </iframe>
-                <div style="text-align: center; margin-top: 12px;">
-                    <a href="https://www.google.com/maps/dir//Skin+Care+Centre+Dr.+Mugdha+Mohan+Bettiah" 
-                       target="_blank" 
-                       class="btn-secondary" 
-                       style="padding: 10px 24px; font-size: 14px; display: inline-block;">
-                        <i class="fas fa-directions"></i> Open in Google Maps
-                    </a>
+                <div class="contact-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3561.3304382568695!2d84.49281327450456!3d26.797605176715958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39936f18623a83df%3A0xd4f7e931dc2ffa94!2sSkin%20Care%20Centre%20(Dr.%20Mugdha%20Mohan)!5e0!3m2!1sen!2sus!4v1786411576501!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 12px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        title="Dr. Mugdha Mohan Skin Care Centre Location">
+                    </iframe>
+                    <div style="text-align: center; margin-top: 12px;">
+                        <a href="https://www.google.com/maps/dir//Skin+Care+Centre+Dr.+Mugdha+Mohan+Bettiah" 
+                           target="_blank" 
+                           class="btn-secondary" 
+                           style="padding: 10px 24px; font-size: 14px; display: inline-block;">
+                            <i class="fas fa-directions"></i> Open in Google Maps
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- ============ BOOKING SECTION ============ -->
     <section class="booking" id="booking">
@@ -544,7 +1674,6 @@
                     <p class="footer-text">
                         Expert dermatological care with a personal touch.
                     </p>
-                    <!-- Social Media Links in Footer -->
                     <div class="footer-social">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -584,11 +1713,100 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Dr. Mugdha Mohan Skin Care Centre. All rights reserved.</p>
-                <p>Made with ❤️ by <a href="#" target="_blank">Vibe Coder</a></p>
+                <p>Made with ❤️ by <a href="#" target="_blank">Almas</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // ================================================================
+        //  HAMBURGER MENU
+        // ================================================================
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu when clicking a link (for mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ================================================================
+        //  SCROLL TO TOP BUTTON
+        // ================================================================
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ================================================================
+        //  FAQ ACCORDION
+        // ================================================================
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+
+                // Close all FAQs
+                document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+                document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
+
+                // Toggle current
+                if (!isOpen) {
+                    answer.classList.add('open');
+                    button.classList.add('active');
+                }
+            });
+        });
+
+        // ================================================================
+        //  BOOKING FORM SUBMIT
+        // ================================================================
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('✅ Thank you! Your appointment request has been sent. We will contact you shortly.');
+            e.target.reset();
+        });
+
+        // ================================================================
+        //  SMOOTH REVEAL ON SCROLL
+        // ================================================================
+        const sections = document.querySelectorAll('section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.08 });
+
+        sections.forEach(sec => {
+            sec.style.opacity = '0';
+            sec.style.transform = 'translateY(28px)';
+            sec.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+            observer.observe(sec);
+        });
+
+        console.log('✅ Dr. Mugdha Mohan website loaded successfully!');
+        console.log('📌 Navigation bar is now working properly.');
+    </script>
 </body>
 </html>
