@@ -54,7 +54,7 @@
     }
     </script>
 
-    <!-- Fonts & Styles -->
+    <!-- Fonts & Styles (Inline) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
@@ -1058,6 +1058,20 @@
             width: 100%;
         }
 
+        .booking-form .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .booking-form .btn-primary .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* ================================================================
            FOOTER
            ================================================================ */
@@ -1678,25 +1692,44 @@
                         <div class="benefit">✅ Quick & Easy Booking</div>
                         <div class="benefit">✅ Flexible Time Slots</div>
                         <div class="benefit">✅ Expert Consultation</div>
+                        <div class="benefit">✅ Instant Email Confirmation</div>
                     </div>
                 </div>
-                <form class="booking-form" id="bookingForm">
-                    <input type="text" placeholder="Your Name" required />
-                    <input type="email" placeholder="Your Email" required />
-                    <input type="tel" placeholder="Phone Number" required />
-                    <select required>
+                <form class="booking-form" id="bookingForm" action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Web3Forms Access Key -->
+                    <input type="hidden" name="access_key" value="b53c01ff-0f9e-4829-8eb1-73c0fe08829e" />
+                    
+                    <!-- Redirect after success -->
+                    <input type="hidden" name="redirect" value="#booking" />
+                    
+                    <!-- Subject for email -->
+                    <input type="hidden" name="subject" value="📋 New Appointment Booking - Dr. Mugdha Mohan Skin Care Centre" />
+                    
+                    <!-- From Name -->
+                    <input type="hidden" name="from_name" value="Dr. Mugdha Mohan Skin Care Centre" />
+                    
+                    <!-- Bot protection (honeypot) -->
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+                    
+                    <input type="text" name="name" placeholder="Your Full Name" required />
+                    <input type="email" name="email" placeholder="Your Email Address" required />
+                    <input type="tel" name="phone" placeholder="Phone Number" required />
+                    
+                    <select name="service" required>
                         <option value="">Select Service</option>
-                        <option>General Dermatology</option>
-                        <option>Cosmetic Dermatology</option>
-                        <option>Skin Cancer Screening</option>
-                        <option>Pediatric Dermatology</option>
-                        <option>Anti-Aging Treatments</option>
-                        <option>Hair & Nail Care</option>
+                        <option value="General Dermatology">General Dermatology</option>
+                        <option value="Cosmetic Dermatology">Cosmetic Dermatology</option>
+                        <option value="Skin Cancer Screening">Skin Cancer Screening</option>
+                        <option value="Pediatric Dermatology">Pediatric Dermatology</option>
+                        <option value="Anti-Aging Treatments">Anti-Aging Treatments</option>
+                        <option value="Hair & Nail Care">Hair & Nail Care</option>
                     </select>
-                    <input type="date" required />
-                    <input type="time" required />
-                    <textarea placeholder="Any specific concerns?" rows="3"></textarea>
-                    <button type="submit" class="btn-primary">
+                    
+                    <input type="date" name="date" required />
+                    <input type="time" name="time" required />
+                    <textarea name="message" placeholder="Any specific concerns?" rows="3"></textarea>
+                    
+                    <button type="submit" class="btn-primary" id="submitBtn">
                         <i class="fas fa-calendar-check"></i> Book Appointment
                     </button>
                 </form>
@@ -1773,7 +1806,6 @@
             navLinks.classList.toggle('open');
         });
 
-        // Close menu when clicking a link (for mobile)
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -1829,11 +1861,9 @@
                 const answer = button.nextElementSibling;
                 const isOpen = answer.classList.contains('open');
 
-                // Close all FAQs
                 document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
                 document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
 
-                // Toggle current
                 if (!isOpen) {
                     answer.classList.add('open');
                     button.classList.add('active');
@@ -1842,12 +1872,58 @@
         });
 
         // ================================================================
-        //  BOOKING FORM SUBMIT
+        //  BOOKING FORM - Web3Forms API
         // ================================================================
-        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+        const bookingForm = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        bookingForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('✅ Thank you! Your appointment request has been sent. We will contact you shortly.');
-            e.target.reset();
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(bookingForm);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(`✅ Thank you, ${data.name || 'Patient'}! 
+                    
+Your appointment request has been sent successfully!
+
+📋 Service: ${data.service || 'Not specified'}
+📅 Date: ${data.date || 'Not specified'}
+🕐 Time: ${data.time || 'Not specified'}
+
+📍 Dr. Mugdha Mohan Skin Care Centre
+West of Kotwali, Chowk, Hospital Rd, Bettiah, Bihar
+
+We will contact you shortly at ${data.phone || 'your number'}.
+Please check your email for confirmation.`);
+                    
+                    bookingForm.reset();
+                    submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book Appointment';
+                    submitBtn.disabled = false;
+                } else {
+                    throw new Error(result.message || 'Something went wrong');
+                }
+            } catch (error) {
+                alert('❌ Sorry, there was an error sending your appointment request. Please try again or call us directly.\n\nError: ' + error.message);
+                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book Appointment';
+                submitBtn.disabled = false;
+            }
         });
 
         // ================================================================
@@ -1872,7 +1948,8 @@
         });
 
         console.log('✅ Dr. Mugdha Mohan website loaded successfully!');
-        console.log('📌 Mobile navigation now scrolls horizontally (not vertically)');
+        console.log('📌 Mobile navigation scrolls horizontally');
+        console.log('📧 Bookings sent to: b53c01ff-0f9e-4829-8eb1-73c0fe08829e');
     </script>
 </body>
 </html>
